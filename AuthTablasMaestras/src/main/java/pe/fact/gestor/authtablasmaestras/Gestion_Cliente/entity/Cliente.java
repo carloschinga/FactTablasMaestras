@@ -49,6 +49,6 @@ public class Cliente {
     @Column(name = "estdClie")
     private String estdClie; // 'V' = Vigente/Activo, 'S' = Suspendido
 
-    @Transient
+    @Column(name = "codiUsuaAlta") // Mapeamos tu campo Java a la columna real de la BD
     private Integer usuarioRegistroId;
 }

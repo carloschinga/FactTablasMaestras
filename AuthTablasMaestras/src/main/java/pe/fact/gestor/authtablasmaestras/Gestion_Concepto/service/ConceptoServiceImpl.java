@@ -1,56 +1,41 @@
 package pe.fact.gestor.authtablasmaestras.Gestion_Concepto.service;
 
-import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pe.fact.gestor.authtablasmaestras.Gestion_Concepto.entity.Concepto;
 import pe.fact.gestor.authtablasmaestras.Gestion_Concepto.repository.ConceptoRepository;
-
 import java.util.List;
 
 @Service
+@Transactional
 public class ConceptoServiceImpl implements ConceptoService {
 
-    private final ConceptoRepository conceptoRepository;
-
-    public ConceptoServiceImpl(ConceptoRepository conceptoRepository) {
-        this.conceptoRepository = conceptoRepository;
-    }
+    @Autowired
+    private ConceptoRepository conceptoRepository;
 
     @Override
-    @Transactional
     public List<Concepto> listar() {
-        return conceptoRepository.listarConcepto();
+        return conceptoRepository.findAll();
     }
 
     @Override
-    @Transactional
     public void agregar(Concepto concepto) {
-        conceptoRepository.insertarConcepto(
-                concepto.getNombConc(),
-                concepto.getMontConc(),
-                concepto.getCodiPlan(),
-                concepto.getCodiMes(),
-                concepto.getEstdConc()
-        );
+        conceptoRepository.save(concepto);
     }
 
     @Override
-    @Transactional
     public void modificar(Concepto concepto) {
-        conceptoRepository.actualizarConcepto(
-                concepto.getCodiConc(),
-                concepto.getNombConc(),
-                concepto.getMontConc(),
-                concepto.getCodiPlan(),
-                concepto.getCodiMes(),
-                concepto.getEstdConc()
-        );
+        conceptoRepository.save(concepto);
     }
 
     @Override
-    @Transactional
-    public void eliminar(int codiConc) {
-        conceptoRepository.eliminarConcepto(codiConc);
+    public void eliminar(Integer id) {
+        conceptoRepository.deleteById(id);
     }
 
+    @Override
+    public Concepto buscarPorId(Integer id) {
+        return conceptoRepository.findById(id).orElse(null);
+    }
 }

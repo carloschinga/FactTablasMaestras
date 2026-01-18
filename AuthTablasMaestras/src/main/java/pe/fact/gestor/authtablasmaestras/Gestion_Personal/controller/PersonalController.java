@@ -1,5 +1,8 @@
 package pe.fact.gestor.authtablasmaestras.Gestion_Personal.controller;
 
+import org.springframework.beans.factory.annotation.Autowired; // Faltaba
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pe.fact.gestor.authtablasmaestras.Gestion_Personal.entity.Personal;
 import pe.fact.gestor.authtablasmaestras.Gestion_Personal.service.PersonalService;
@@ -7,34 +10,36 @@ import pe.fact.gestor.authtablasmaestras.Gestion_Personal.service.PersonalServic
 import java.util.List;
 
 @RestController
-@RequestMapping("/personal")
+@RequestMapping("/api/personal")
 @CrossOrigin("*")
 public class PersonalController {
 
-    private final PersonalService personalService;
+    @Autowired // IMPORTANTE
+    private PersonalService personalService; // Usa la Interfaz
 
-    public PersonalController(PersonalService personalService) {
-        this.personalService = personalService;
-    }
+    // Constructor opcional (ya pusimos @Autowired arriba)
+    // public PersonalController(PersonalService personalService) { this.personalService = personalService; }
 
     @GetMapping("/listar")
-    public List<Personal> listar() {
-        return personalService.listar();
+    public ResponseEntity<List<Personal>> listar() {
+        return ResponseEntity.ok(personalService.listar());
     }
 
     @PostMapping("/agregar")
-    public void agregar(@RequestBody Personal personal) {
+    public ResponseEntity<Void> agregar(@RequestBody Personal personal) {
         personalService.agregar(personal);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("/modificar")
-    public void modificar(@RequestBody Personal personal) {
+    public ResponseEntity<Void> modificar(@RequestBody Personal personal) {
         personalService.modificar(personal);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/eliminar")
-    public void eliminar(@RequestParam Integer codiPers) {
+    public ResponseEntity<Void> eliminar(@RequestParam Integer codiPers) {
         personalService.eliminar(codiPers);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
-
 }

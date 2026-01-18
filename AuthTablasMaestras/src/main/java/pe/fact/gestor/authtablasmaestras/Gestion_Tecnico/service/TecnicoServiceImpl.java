@@ -1,51 +1,41 @@
 package pe.fact.gestor.authtablasmaestras.Gestion_Tecnico.service;
 
-import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pe.fact.gestor.authtablasmaestras.Gestion_Tecnico.entity.Tecnico;
 import pe.fact.gestor.authtablasmaestras.Gestion_Tecnico.repository.TecnicoRepository;
-
 import java.util.List;
 
 @Service
+@Transactional
 public class TecnicoServiceImpl implements TecnicoService {
 
-    private final TecnicoRepository tecnicoRepository;
-
-    public TecnicoServiceImpl(TecnicoRepository tecnicoRepository) {
-        this.tecnicoRepository = tecnicoRepository;
-    }
+    @Autowired
+    private TecnicoRepository tecnicoRepository;
 
     @Override
-    @Transactional
     public List<Tecnico> listar() {
-        return tecnicoRepository.listarTecnico();
+        return tecnicoRepository.findAll();
     }
 
     @Override
-    @Transactional
     public void agregar(Tecnico tecnico) {
-        tecnicoRepository.insertarTecnico(
-                tecnico.getNombTecn(),
-                tecnico.getDniTecn()
-        );
+        tecnicoRepository.save(tecnico);
     }
 
     @Override
-    @Transactional
     public void modificar(Tecnico tecnico) {
-        tecnicoRepository.actualizarTecnico(
-                tecnico.getCodiTecn(),
-                tecnico.getNombTecn(),
-                tecnico.getDniTecn()
-        );
+        tecnicoRepository.save(tecnico);
     }
 
     @Override
-    @Transactional
-    public boolean eliminar(int codiTecn) {
-        tecnicoRepository.eliminarTecnico(codiTecn);
-        return true;
+    public void eliminar(Integer id) {
+        tecnicoRepository.deleteById(id);
     }
 
+    @Override
+    public Tecnico buscarPorId(Integer id) {
+        return tecnicoRepository.findById(id).orElse(null);
+    }
 }

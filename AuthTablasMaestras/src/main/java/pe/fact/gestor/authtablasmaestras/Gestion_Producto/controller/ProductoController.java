@@ -8,41 +8,33 @@ import pe.fact.gestor.authtablasmaestras.Gestion_Producto.service.ProductoServic
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/productos") // OJO: Verifica si usas /producto o /api/productos
+@RequestMapping("/api/productos")
 @CrossOrigin(origins = "*")
 public class ProductoController {
 
     @Autowired
-    private ProductoService service;
+    private ProductoService productoService;
 
     @GetMapping("/listar")
     public ResponseEntity<List<Producto>> listar() {
-        return ResponseEntity.ok(service.listar());
+        return ResponseEntity.ok(productoService.listar());
     }
 
     @PostMapping("/guardar")
-    public ResponseEntity<String> guardar(@RequestBody Producto producto) {
-        try {
-            service.crear(producto);
-            return ResponseEntity.ok("Producto registrado");
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
-        }
+    public ResponseEntity<Void> guardar(@RequestBody Producto producto) {
+        productoService.agregar(producto);
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping("/modificar")
-    public ResponseEntity<String> modificar(@RequestBody Producto producto) {
-        try {
-            service.actualizar(producto);
-            return ResponseEntity.ok("Producto actualizado");
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
-        }
+    public ResponseEntity<Void> modificar(@RequestBody Producto producto) {
+        productoService.modificar(producto);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/eliminar")
-    public ResponseEntity<String> eliminar(@RequestParam("id") Integer id) {
-        service.eliminar(id);
-        return ResponseEntity.ok("Producto eliminado");
+    public ResponseEntity<Void> eliminar(@RequestParam Integer id) {
+        productoService.eliminar(id);
+        return ResponseEntity.ok().build();
     }
 }

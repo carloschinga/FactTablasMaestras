@@ -1,62 +1,41 @@
 package pe.fact.gestor.authtablasmaestras.Gestion_Personal.service;
 
-import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pe.fact.gestor.authtablasmaestras.Gestion_Personal.entity.Personal;
 import pe.fact.gestor.authtablasmaestras.Gestion_Personal.repository.PersonalRepository;
-
 import java.util.List;
 
 @Service
+@Transactional
 public class PersonalServiceImpl implements PersonalService {
 
-    private final PersonalRepository personalRepository;
-
-    public PersonalServiceImpl(PersonalRepository personalRepository) {
-        this.personalRepository = personalRepository;
-    }
+    @Autowired
+    private PersonalRepository personalRepository;
 
     @Override
-    @Transactional
     public List<Personal> listar() {
-        return personalRepository.listarPersonal();
+        return personalRepository.findAll();
     }
 
     @Override
-    @Transactional
     public void agregar(Personal personal) {
-        personalRepository.agregarPersonal(
-                personal.getTipoDocu(),
-                personal.getNumeDocu(),
-                personal.getAppaPers(),
-                personal.getApmaPers(),
-                personal.getNombPers(),
-                personal.getCodiHora(),
-                personal.getCodiRol(),
-                personal.getEstaPers()
-        );
+        personalRepository.save(personal);
     }
 
     @Override
-    @Transactional
     public void modificar(Personal personal) {
-        personalRepository.modificarPersonal(
-                personal.getCodiPers(),
-                personal.getTipoDocu(),
-                personal.getNumeDocu(),
-                personal.getAppaPers(),
-                personal.getApmaPers(),
-                personal.getNombPers(),
-                personal.getCodiHora(),
-                personal.getCodiRol(),
-                personal.getEstaPers()
-        );
+        personalRepository.save(personal);
     }
 
     @Override
-    @Transactional
-    public void eliminar(Integer codiPers) {
-        personalRepository.eliminarPersonal(codiPers);
+    public void eliminar(Integer id) {
+        personalRepository.deleteById(id);
     }
 
+    @Override
+    public Personal buscarPorId(Integer id) {
+        return personalRepository.findById(id).orElse(null);
+    }
 }

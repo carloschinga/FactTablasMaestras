@@ -4,12 +4,9 @@ import pe.fact.gestor.authtablasmaestras.Gestion_Concepto.entity.Concepto;
 import java.util.List;
 
 public interface ConceptoService {
-
     List<Concepto> listar();
-
     void agregar(Concepto concepto);
-
     void modificar(Concepto concepto);
-
-    void eliminar(int codiConc);
+    void eliminar(Integer id);
+    Concepto buscarPorId(Integer id);
 }

@@ -8,57 +8,34 @@ import pe.fact.gestor.authtablasmaestras.Gestion_Plan.service.PlanService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/planes")
+@RequestMapping("/api/plan")
 @CrossOrigin(origins = "*")
 public class PlanController {
 
     @Autowired
-    private PlanService service;
+    private PlanService planService;
 
     @GetMapping("/listar")
     public ResponseEntity<List<Plan>> listar() {
-        return ResponseEntity.ok(service.listarTodos());
+        return ResponseEntity.ok(planService.listar());
     }
 
-    @PostMapping("/guardar")
-    public ResponseEntity<String> guardar(@RequestBody Plan plan) {
-        try {
-            service.crear(plan);
-            return ResponseEntity.ok("Plan registrado correctamente");
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
-        }
+    @PostMapping("/guardar") // OJO: Tu HTML llamaba a /guardar
+    public ResponseEntity<Void> guardar(@RequestBody Plan plan) {
+        planService.agregar(plan);
+        return ResponseEntity.ok().build();
     }
 
-    // --- NUEVO: MODIFICAR ---
     @PutMapping("/modificar")
-    public ResponseEntity<String> modificar(@RequestBody Plan plan) {
-        try {
-            service.actualizar(plan);
-            return ResponseEntity.ok("Plan actualizado correctamente");
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
-        }
+    public ResponseEntity<Void> modificar(@RequestBody Plan plan) {
+        planService.modificar(plan);
+        return ResponseEntity.ok().build();
     }
 
-    // --- NUEVO: ELIMINAR ---
+    // Agregamos el endpoint anular/eliminar por si acaso
     @DeleteMapping("/eliminar")
-    public ResponseEntity<String> eliminar(@RequestParam("id") Integer id) {
-        try {
-            service.eliminar(id);
-            return ResponseEntity.ok("Plan eliminado correctamente");
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
-        }
-    }
-
-    @PutMapping("/activar") // Usamos PUT porque actualizamos estado
-    public ResponseEntity<String> activar(@RequestParam("id") Integer id) {
-        try {
-            service.activar(id);
-            return ResponseEntity.ok("Plan activado correctamente");
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
-        }
+    public ResponseEntity<Void> eliminar(@RequestParam Integer id) {
+        planService.eliminar(id);
+        return ResponseEntity.ok().build();
     }
 }

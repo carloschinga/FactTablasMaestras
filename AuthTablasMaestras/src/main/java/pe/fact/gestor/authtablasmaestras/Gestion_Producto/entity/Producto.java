@@ -2,7 +2,6 @@ package pe.fact.gestor.authtablasmaestras.Gestion_Producto.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import java.math.BigDecimal; // Importante para el precio
 
 @Data
 @Entity
@@ -17,7 +16,11 @@ public class Producto {
     @Column(name = "nombProd")
     private String nombProd;
 
-    // --- NUEVOS CAMPOS ---
+    // --- CAMPOS ELIMINADOS PARA COINCIDIR CON LA BD ---
+    // Como la tabla no tiene precio, stock ni estado, los quitamos de aquí.
+    // Si en el futuro los agregas a la BD, descomenta esto.
+
+    /*
     @Column(name = "precProd")
     private BigDecimal precProd;
 
@@ -25,5 +28,6 @@ public class Producto {
     private Integer stocProd;
 
     @Column(name = "estdProd")
-    private String estdProd; // Para el borrado lógico 'A' o 'I'
+    private String estdProd;
+    */
 }
