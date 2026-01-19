@@ -40,9 +40,4 @@ public class ClienteServiceImpl implements ClienteService {
         return clienteRepository.findById(id).orElse(null);
     }
 
-    @Override
-    public List<Cliente> buscarPorDireccion(String direccion) {
-        // Usamos el método mágico que creamos en el repositorio
-        return clienteRepository.findByDireClieContaining(direccion);
-    }
 }

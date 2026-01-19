@@ -45,13 +45,17 @@ public class SecurityConfig {
         return http.build();
     }
 
-    // Configuración CORS para que el Frontend (puerto 80) hable con Backend (8083)
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("*")); // En producción cambiar "*" por tu IP
+
+        // CAMBIO IMPORTANTE: Usar setAllowedOriginPatterns en lugar de setAllowedOrigins
+        configuration.setAllowedOriginPatterns(Arrays.asList("*"));
+
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
+        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "X-Requested-With", "Accept", "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers"));
+        configuration.setAllowCredentials(true); // Permitir credenciales (cookies/auth headers)
+
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;

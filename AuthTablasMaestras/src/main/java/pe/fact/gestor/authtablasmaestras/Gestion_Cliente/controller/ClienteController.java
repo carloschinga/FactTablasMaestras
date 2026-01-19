@@ -6,16 +6,17 @@ import org.springframework.web.bind.annotation.*;
 import pe.fact.gestor.authtablasmaestras.Gestion_Cliente.entity.Cliente;
 import pe.fact.gestor.authtablasmaestras.Gestion_Cliente.service.ClienteService;
 import java.util.List;
+import java.util.ArrayList; // Import necesario para listas vacías
 
 @RestController
 @RequestMapping("/api/cliente")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*") // Permite acceso desde cualquier lugar (Frontend)
 public class ClienteController {
 
     @Autowired
-    private ClienteService clienteService; // Variable correcta
+    private ClienteService clienteService;
 
-    // 1. GET /api/cliente/listar
+    // 1. GET /api/cliente/listar (Este es el que usa tu tabla principal)
     @GetMapping("/listar")
     public ResponseEntity<List<Cliente>> listar() {
         return ResponseEntity.ok(clienteService.listar());
@@ -29,9 +30,11 @@ public class ClienteController {
             Cliente c = clienteService.buscarPorId(Integer.parseInt(parametro));
             return c != null ? ResponseEntity.ok(c) : ResponseEntity.notFound().build();
         } else {
-            // Es texto -> Buscamos por Dirección (o Razón Social si prefieres)
-            List<Cliente> lista = clienteService.buscarPorDireccion(parametro);
-            return ResponseEntity.ok(lista);
+            // ERROR CORREGIDO: Como borramos "direClie" de la BD, no podemos buscar por dirección.
+            // Por ahora devolvemos una lista vacía para que no de error de compilación.
+            // Más adelante podemos implementar "buscarPorRazonSocial".
+            System.out.println("Búsqueda por texto desactivada temporalmente: " + parametro);
+            return ResponseEntity.ok(new ArrayList<Cliente>());
         }
     }
 
@@ -39,7 +42,7 @@ public class ClienteController {
     @PostMapping("/agregar")
     public ResponseEntity<String> agregar(@RequestBody Cliente cliente) {
         try {
-            clienteService.agregar(cliente); // Corregido a 'agregar'
+            clienteService.agregar(cliente);
             return ResponseEntity.ok("Cliente registrado correctamente");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error: " + e.getMessage());

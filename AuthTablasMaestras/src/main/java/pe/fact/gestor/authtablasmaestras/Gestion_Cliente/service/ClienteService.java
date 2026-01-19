@@ -11,5 +11,5 @@ public interface ClienteService {
 
     // --- NUEVOS MÉTODOS REQUERIDOS ---
     Cliente buscarPorId(Integer id);
-    List<Cliente> buscarPorDireccion(String direccion);
+    //List<Cliente> buscarPorDireccion(String direccion);
 }

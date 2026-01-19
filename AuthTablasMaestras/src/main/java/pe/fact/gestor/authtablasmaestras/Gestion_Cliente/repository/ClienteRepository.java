@@ -9,5 +9,5 @@ import java.util.List;
 public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
     // Spring Boot crea el SQL automáticamente al leer el nombre del metodo:
     // "Buscar donde direClie contenga el texto (LIKE %texto%)"
-    List<Cliente> findByDireClieContaining(String texto);
+    //List<Cliente> findByDireClieContaining(String texto);
 }
