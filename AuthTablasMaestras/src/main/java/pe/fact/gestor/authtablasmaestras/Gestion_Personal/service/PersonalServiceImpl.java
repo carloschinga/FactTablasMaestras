@@ -5,6 +5,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pe.fact.gestor.authtablasmaestras.Gestion_Personal.entity.Personal;
 import pe.fact.gestor.authtablasmaestras.Gestion_Personal.repository.PersonalRepository;
+import pe.fact.gestor.authtablasmaestras.Gestion_Personal.repository.RolRepository;
+import pe.fact.gestor.authtablasmaestras.Gestion_Personal.repository.AsistenciaHorarioRepository;
+
 import java.util.List;
 
 @Service
@@ -13,6 +16,12 @@ public class PersonalServiceImpl implements PersonalService {
 
     @Autowired
     private PersonalRepository personalRepository;
+
+    @Autowired
+    private RolRepository rolRepository;
+
+    @Autowired
+    private AsistenciaHorarioRepository horarioRepository;
 
     @Override
     public List<Personal> listar() {

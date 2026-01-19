@@ -9,4 +9,5 @@ public interface PersonalService {
     void modificar(Personal personal);
     void eliminar(Integer id);
     Personal buscarPorId(Integer id);
+
 }

@@ -32,4 +32,11 @@ public class TecnicoController {
         tecnicoService.modificar(tecnico);
         return ResponseEntity.ok().build();
     }
+
+    @DeleteMapping("/eliminar/{id}")
+    public ResponseEntity<Void> eliminar(@PathVariable Integer id) {
+        tecnicoService.eliminar(id);
+        return ResponseEntity.ok().build();
+    }
+
 }
