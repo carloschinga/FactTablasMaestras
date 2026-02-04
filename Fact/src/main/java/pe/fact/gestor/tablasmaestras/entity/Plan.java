@@ -1,6 +1,6 @@
 package pe.fact.gestor.tablasmaestras.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.Data;
 
 import java.math.BigDecimal;

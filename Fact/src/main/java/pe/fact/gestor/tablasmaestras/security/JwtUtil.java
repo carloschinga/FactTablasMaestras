@@ -11,14 +11,13 @@ import java.util.Date;
 @Component
 public class JwtUtil {
 
-    // La misma clave exacta que en FactAuth
+    // IMPORTANTE: ESTA CLAVE DEBE SER IDENTICA A LA DE FactAuth
     private final String SECRET = "3st@_3s_un@_cl@v3_s3gura@_2026#$@_p3ru";
 
     private Key getSigningKey() {
         return Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8));
     }
 
-    // Extraer username (Usando parserBuilder moderno)
     public String extractUsername(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(getSigningKey())
@@ -28,7 +27,6 @@ public class JwtUtil {
                 .getSubject();
     }
 
-    // Validar token (Verifica firma y expiración)
     public boolean validateToken(String token, String username) {
         try {
             final String extractedUsername = extractUsername(token);
@@ -39,12 +37,10 @@ public class JwtUtil {
         }
     }
 
-    // Verificar si expiró
     private boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
     }
 
-    // Extraer expiración
     private Date extractExpiration(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(getSigningKey())

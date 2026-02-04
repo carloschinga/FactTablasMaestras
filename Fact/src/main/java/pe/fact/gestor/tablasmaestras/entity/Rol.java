@@ -1,6 +1,6 @@
 package pe.fact.gestor.tablasmaestras.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "rol")
@@ -13,9 +13,19 @@ public class Rol {
     private String nombRol;
 
     // Getters & Setters
-    public Integer getCodiRol() { return codiRol; }
-    public void setCodiRol(Integer codiRol) { this.codiRol = codiRol; }
+    public Integer getCodiRol() {
+        return codiRol;
+    }
 
-    public String getNombRol() { return nombRol; }
-    public void setNombRol(String nombRol) { this.nombRol = nombRol; }
+    public void setCodiRol(Integer codiRol) {
+        this.codiRol = codiRol;
+    }
+
+    public String getNombRol() {
+        return nombRol;
+    }
+
+    public void setNombRol(String nombRol) {
+        this.nombRol = nombRol;
+    }
 }

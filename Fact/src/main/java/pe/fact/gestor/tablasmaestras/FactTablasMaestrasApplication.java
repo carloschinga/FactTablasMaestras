@@ -9,9 +9,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"pe.fact.gestor"})
-@EnableJpaRepositories(basePackages = {"pe.fact.gestor"})
-@EntityScan(basePackages = {"pe.fact.gestor"})
+@ComponentScan(basePackages = { "pe.fact.gestor.tablasmaestras" })
+@EnableJpaRepositories(basePackages = { "pe.fact.gestor.tablasmaestras" })
+@EntityScan(basePackages = { "pe.fact.gestor.tablasmaestras" })
 public class FactTablasMaestrasApplication extends SpringBootServletInitializer {
 
     @Override

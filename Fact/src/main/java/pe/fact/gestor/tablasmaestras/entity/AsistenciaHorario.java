@@ -1,6 +1,6 @@
 package pe.fact.gestor.tablasmaestras.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "asistencia_horario")
@@ -13,9 +13,19 @@ public class AsistenciaHorario {
     private String nombHora;
 
     // Getters & Setters
-    public Integer getCodiHora() { return codiHora; }
-    public void setCodiHora(Integer codiHora) { this.codiHora = codiHora; }
+    public Integer getCodiHora() {
+        return codiHora;
+    }
 
-    public String getNombHora() { return nombHora; }
-    public void setNombHora(String nombHora) { this.nombHora = nombHora; }
+    public void setCodiHora(Integer codiHora) {
+        this.codiHora = codiHora;
+    }
+
+    public String getNombHora() {
+        return nombHora;
+    }
+
+    public void setNombHora(String nombHora) {
+        this.nombHora = nombHora;
+    }
 }

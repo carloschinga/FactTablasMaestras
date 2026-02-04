@@ -1,6 +1,6 @@
 package pe.fact.gestor.tablasmaestras.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.Data;
 
 @Data
@@ -21,13 +21,13 @@ public class Producto {
     // Si en el futuro los agregas a la BD, descomenta esto.
 
     /*
-    @Column(name = "precProd")
-    private BigDecimal precProd;
-
-    @Column(name = "stocProd")
-    private Integer stocProd;
-
-    @Column(name = "estdProd")
-    private String estdProd;
-    */
+     * @Column(name = "precProd")
+     * private BigDecimal precProd;
+     * 
+     * @Column(name = "stocProd")
+     * private Integer stocProd;
+     * 
+     * @Column(name = "estdProd")
+     * private String estdProd;
+     */
 }

@@ -1,6 +1,6 @@
 package pe.fact.gestor.tablasmaestras.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.Data;
 
 @Data
@@ -34,8 +34,8 @@ public class Cliente {
     @Column(name = "mailClie")
     private String mailClie;
 
-    //@Column(name = "direClie")
-    //private String direClie;
+    // @Column(name = "direClie")
+    // private String direClie;
 
     @Column(name = "sexoClie")
     private String sexoClie;

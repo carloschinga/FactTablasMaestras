@@ -33,8 +33,8 @@ public class SecurityConfig {
                 // 3. Gestión de sesión: Stateless
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 // 4. Autorización de rutas
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/**").authenticated() // Protegemos /api
+                .authorizeRequests(auth -> auth
+                        .antMatchers("/api/**").authenticated() // Protegemos /api
                         .anyRequest().permitAll() // El resto público (Login, etc)
                 )
                 // 5. Filtro JWT
@@ -47,11 +47,13 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        // CAMBIO IMPORTANTE: Usar setAllowedOriginPatterns en lugar de setAllowedOrigins
+        // CAMBIO IMPORTANTE: Usar setAllowedOriginPatterns en lugar de
+        // setAllowedOrigins
         configuration.setAllowedOriginPatterns(Arrays.asList("*"));
 
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "X-Requested-With", "Accept", "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers"));
+        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "X-Requested-With", "Accept",
+                "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers"));
         configuration.setAllowCredentials(true); // Permitir credenciales (cookies/auth headers)
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
