@@ -112,7 +112,7 @@
                 </configuration>
             </plugin>
         </plugins>
-        <finalName>tablasmaestras</finalName>
+        <finalName>fact-tablas-maestras</finalName>
     </build>
 
 </project>
